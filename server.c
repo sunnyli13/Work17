@@ -24,20 +24,19 @@ int main() {
 		int toServer = open("toServer", O_RDONLY);
 		printf("Connecting...\n");
 
-		//server gets the toClient pipe
 		char name[100];
 		read(toServer, name, sizeof(name));
-		printf("Received client name: %s\n",name);
+		printf("Received client name: %s\n", name);
+
 		remove("toServer");
 		printf("toServer removed\n");
 
-		//server sends to client
 		int toClient = open("toClient", O_WRONLY);
 		printf("Connected to client\n");
-		write(toClient,"Hello!", 7);
+
+		write(toClient, "Hello!", 7);
 		printf("Confirmation sent\n");
 
-		//server gets confirmation from client
 		char confirm[100];
 		read(toServer, confirm, sizeof(confirm));
 		printf("Received Confirmation: %s\n", confirm);
